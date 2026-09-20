@@ -280,9 +280,9 @@
         background-image:
           linear-gradient(
             90deg,
-            rgba(5, 3, 8, 0.22) 0%,
-            rgba(5, 3, 8, 0.15) 45%,
-            rgba(5, 3, 8, 0) 100%
+            rgba(5, 3, 8, 0.12) 0%,
+            rgba(5, 3, 8, 0.25) 45%,
+            rgba(5, 3, 8, 0.6) 100%
           ),
           linear-gradient(180deg, rgba(5, 3, 8, 0.25), rgba(5, 3, 8, 0.8)),
           url("images/bg2.jpg");
@@ -1669,6 +1669,7 @@
       }
     </style>
     <base target="_blank" />
+    <base target="_blank" />
   </head>
 
   <body>
@@ -1691,7 +1692,7 @@
 
           <a
             id="navCTA"
-            href="https://thedinator.com/tracker/spots/redirect/0klauqo2"
+            href="https://thedinator.com/tracker/spots/redirect/RALeX399"
             class="nav-button"
           >
             Get Access
@@ -1763,7 +1764,7 @@
             <div class="hero-actions">
               <a
                 id="heroCTA"
-                href="https://thedinator.com/tracker/spots/redirect/0klauqo2"
+                href="https://thedinator.com/tracker/spots/redirect/RALeX399"
                 class="main-button"
               >
                 Get My AI Access
@@ -2092,7 +2093,7 @@
 
               <a
                 id="bottomCTA"
-                href="https://thedinator.com/tracker/spots/redirect/0klauqo2"
+                href="https://thedinator.com/tracker/spots/redirect/RALeX399"
                 class="cta-button"
               >
                 Claim My ApexTrade AI Access
@@ -2138,7 +2139,7 @@
     <div class="sticky-cta">
       <a
         id="stickyCTA"
-        href="https://thedinator.com/tracker/spots/redirect/0klauqo2"
+        href="https://thedinator.com/tracker/spots/redirect/RALeX399"
         class="sticky-button"
       >
         ✦ Get ApexTrade AI Access
@@ -2169,14 +2170,14 @@
 
         The CTA automatically becomes:
 
-        https://thedinator.com/tracker/spots/redirect/0klauqo2
+        https://thedinator.com/tracker/spots/redirect/RALeX399
         ?pixel=123
         &fbclid=ABC
       */
 
       (function () {
         const TRACKER_BASE =
-          "https://thedinator.com/tracker/spots/redirect/0klauqo2";
+          "https://thedinator.com/tracker/spots/redirect/RALeX399";
 
         const TRACKING_PARAMETERS = [
           "pixel",
@@ -2240,6 +2241,60 @@
         */
 
         console.log("ApexTrade tracker:", trackerUrl.toString());
+      })();
+    </script>
+    <!-- =====================================================
+         FIREBASE VISIT TRACKER
+    ====================================================== -->
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+    <script>
+      (function () {
+        const firebaseConfig = {
+          apiKey: "AIzaSyCZfgAyItxawS3FzjsjZDzJ-CKqDbWFCX4",
+          authDomain: "eventra-5b375.firebaseapp.com",
+          databaseURL: "https://eventra-5b375-default-rtdb.firebaseio.com",
+          projectId: "eventra-5b375",
+          storageBucket: "eventra-5b375.firebasestorage.app",
+          messagingSenderId: "53804447008",
+          appId: "1:53804447008:web:1576624a1a5cd1d2a85345",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        /*
+          Record one visit per page load.
+          Each entry is stored under "visits" with a timestamp,
+          so the admin dashboard can count visits over time.
+        */
+        db.ref("visits")
+          .push()
+          .set({
+            timestamp: Date.now(),
+            page: window.location.pathname + window.location.search,
+            userAgent: navigator.userAgent,
+          });
+
+        /*
+          Track the visitor as "live" while the page is open.
+          The entry is removed automatically when they
+          disconnect (close tab, navigate away, lose connection).
+        */
+        const viewerRef = db.ref("viewers").push();
+
+        viewerRef.set({
+          started: Date.now(),
+          page: window.location.pathname + window.location.search,
+        });
+
+        viewerRef.onDisconnect().remove();
+
+        window.addEventListener("beforeunload", function () {
+          viewerRef.remove();
+        });
       })();
     </script>
   </body>
