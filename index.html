@@ -11,13 +11,6 @@
 
     <title>ApexTrade AI — Analyze. Execute. Ascend In Profit.</title>
 
-    <!-- =====================================================
-         FIREBASE VISIT TRACKER
-    ====================================================== -->
-
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -2248,54 +2241,6 @@
         */
 
         console.log("ApexTrade tracker:", trackerUrl.toString());
-      })();
-    </script>
-
-    <script>
-      (function () {
-        const firebaseConfig = {
-          apiKey: "AIzaSyCZfgAyItxawS3FzjsjZDzJ-CKqDbWFCX4",
-          authDomain: "eventra-5b375.firebaseapp.com",
-          databaseURL: "https://eventra-5b375-default-rtdb.firebaseio.com",
-          projectId: "eventra-5b375",
-          storageBucket: "eventra-5b375.firebasestorage.app",
-          messagingSenderId: "53804447008",
-          appId: "1:53804447008:web:1576624a1a5cd1d2a85345",
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        /*
-          Record one visit per page load.
-          Each entry is stored under "visits" with a timestamp,
-          so the admin dashboard can count visits over time.
-        */
-        db.ref("visits")
-          .push()
-          .set({
-            timestamp: Date.now(),
-            page: window.location.pathname + window.location.search,
-            userAgent: navigator.userAgent,
-          });
-
-        /*
-          Track the visitor as "live" while the page is open.
-          The entry is removed automatically when they
-          disconnect (close tab, navigate away, lose connection).
-        */
-        const viewerRef = db.ref("viewers").push();
-
-        viewerRef.set({
-          started: Date.now(),
-          page: window.location.pathname + window.location.search,
-        });
-
-        viewerRef.onDisconnect().remove();
-
-        window.addEventListener("beforeunload", function () {
-          viewerRef.remove();
-        });
       })();
     </script>
   </body>
